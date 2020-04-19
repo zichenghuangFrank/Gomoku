@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SENG513 Individual Project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css">
+    <link rel="icon" href="https://is2-ssl.mzstatic.com/image/thumb/Purple128/v4/bf/25/2e/bf252efc-e08b-c572-a791-69514b3dbf00/source/512x512bb.jpg">
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="jquery.cookie.js"></script>
+    <script src="client.js"></script>
+</head>
+<body>
+<div class="pages">
+    <div id="indexPage">
+        <img id="image_1" src="https://lh3.googleusercontent.com/UZqAYfxyd9mkF83MNEW468qKvpz03KbTndycqxUuuIerX4_8BFIpQjOCdJ54RYDfIBc" alt="Gomoku" width="200" height="200">
+        <img id="image_2" src="https://lh3.googleusercontent.com/UZqAYfxyd9mkF83MNEW468qKvpz03KbTndycqxUuuIerX4_8BFIpQjOCdJ54RYDfIBc" alt="Gomoku" width="200" height="200">
+        <h1 id="indexTitle">Game of Gomoku</h1><br>
+        <h2 id="name"></h2>
+        <form>
+            <input type="text" id="userName"><br>
+        </form>
+        <h3>You can edit your name here.</h3>
+        <button type="button" class="btn" id="save">Save</button><br><br><br>
+        <span id="enterPrompt"></span>
+        <div class="main">
+            <div class="start">
+                <br><br>
+                <i style="color: #CC8A56">To <b>start a new game</b>.</i><br><br>Give this game code to your opponent:<br>
+                <br><br><span id="code"></span><br><br>
+                <br>Tell your opponent to visit this site<br> and enter the code on the right.<br>
+                <br>The game will start<br> after they enter this room code.
+            </div>
+            <div class="joinAppointedGame">
+                <br><br>To join an existing game.<br>
+                <br>Enter someone's game code:<br><br><br>
+                <form>
+                    <input type="text" id="gameCode"><br>
+                </form>
+                <br><br><br><button type="button" class="btn" id="join">Join</button>
+            </div>
+            <div class="joinRandom">
+                <br><br>To start a random game, click the random button:
+                <br><br><br><button type="button" class="btn" id="random">Random</button>
+            </div>
+        </div>
+    </div>
+    <div id="gamePage">
+        <div class="title">
+            <h1>Welcome to Gomoku Game !!!</h1>
+            <span id="information"></span><br>
+            <span id="prompt"></span>
+        </div>
+        <img id="image_3" src="https://hbimg.huabanimg.com/57d20ba7d3cdd512ff3d1e0955a24a32aa5b7ec65f77d-39lxFy_fw658" alt="bamboo" height="360" width="360">
+        <img id="image_4" src="https://hbimg.huabanimg.com/57d20ba7d3cdd512ff3d1e0955a24a32aa5b7ec65f77d-39lxFy_fw658" alt="bamboo" height="360" width="360">
+        <img id="image_5" src="https://pic.90sjimg.com/design/00/72/74/34/59379297c4a02.png" alt="gomoku" height="200" width="200">
+        <img id="image_6" src="https://pic.90sjimg.com/design/00/72/74/34/59379297c4a02.png" alt="gomoku" height="200" width="200">
+        <canvas id="board" width="555px" height="555px"></canvas>
+        <button class="chessboard-default" type="button" id="normal">Normal</button>
+        <button class="chessboard-default" type="button" id="bright">Bright</button>
+        <button class="chessboard-default" type="button" id="dark">Dark</button>
+    </div>
+</div>
+</body>
+</html>
