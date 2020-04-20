@@ -15,9 +15,6 @@ var firstGo = 0;
 // Create a user list to store all online users' information
 var usersOnline = [];
 
-// Second connection
-var isSecond = false;
-
 app.use(express.static('public'));
 
 io.on('connection', function (socket){
@@ -30,7 +27,18 @@ io.on('connection', function (socket){
 
     // User connect
     socket.on('user connect', function (userName, userColor, cookieData) {
-        if (!isSecond) { // Check the socket is the first time to connect or not
+        if (userName) {// Check the socket is the first time to connect or not
+            // Use the cookie data
+            console.log("******************");
+            console.log(userName);
+            console.log("******************");
+            newUser.userName = userName;
+            newUser.userScheme = userColor;
+
+            // Generate the corresponding prompt
+            attention = "Welcome back";
+
+        } else {
             // Generate a random name for a user and show it in the html
             let randomName = randomUsername();
             while (usersNameOnline.includes(randomName)) { // Avoid to generate the repeated name
@@ -41,21 +49,8 @@ io.on('connection', function (socket){
             // The default color theme is "normal"
             newUser.userScheme = "normal";
 
-            // This flag is true after the first time
-            isSecond = true;
-
             // Generate the corresponding prompt
             attention = "We created a name for you:";
-        } else {
-            // Use the cookie data
-            console.log("******************");
-            console.log(userName);
-            console.log("******************");
-            newUser.userName = userName;
-            newUser.userScheme = userColor;
-
-            // Generate the corresponding prompt
-            attention = "Welcome back";
         }
 
         newUser.isRandom = false; // define the user's random game property to be false initially
@@ -201,6 +196,12 @@ io.on('connection', function (socket){
 
         // Send the information to clients in the same room
         io.in(data.gameCode).emit('game playing', {chessBoard: data.chessBoard});
+    });
+
+    // Update the user scheme
+    socket.on('update user scheme', function (data) {
+       let updateUserIndex = findOnlineUserById(socket.id);
+       usersOnline[updateUserIndex].userScheme = data.curScheme;
     });
 
     // Disconnect the user

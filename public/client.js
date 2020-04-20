@@ -35,6 +35,7 @@ $(function () {
     socket.on('create user and room', function (data) {
         $.cookie('userName', data.newUser.userName);
         $.cookie('userScheme', data.newUser.userScheme);
+        curScheme = data.newUser.userScheme;
         $userName.val(data.newUser.userName); // Give a user name to the name area
         $code.html(data.roomID); // Update the html content of code span
         userID = data.newUser.id; // Update the user ID
@@ -130,6 +131,8 @@ $(function () {
         brightStyle();
     } else if (curScheme === "dark") { // dark
         darkStyle();
+    } else {
+        normalStyle();
     }
     board.fillRect(0,0,555,555);
     drawLine();
@@ -152,6 +155,8 @@ $(function () {
             $("html").css('background-color', "#B3D9FF"); // update the html background
         } else if (curScheme === "dark") { // dark
             $("html").css('background-color', "#4D4D4D"); // update the html background
+        } else {
+            $("html").css('background-color', "#FFFFFF"); // update the html background
         }
 
         // Get the opponent's name
@@ -184,6 +189,7 @@ $(function () {
         curScheme = "normal";
         $.cookie('userScheme', curScheme);
         update();
+        socket.emit('update user scheme', {curScheme: curScheme});
     });
 
     $brightBtn.click(function () { // click the bright theme
@@ -194,6 +200,7 @@ $(function () {
         curScheme = "bright";
         $.cookie('userScheme', curScheme);
         update();
+        socket.emit('update user scheme', {curScheme: curScheme});
     });
 
     $darkBtn.click(function () { // click the dark theme
@@ -204,6 +211,7 @@ $(function () {
         curScheme = "dark";
         $.cookie('userScheme', curScheme);
         update();
+        socket.emit('update user scheme', {curScheme: curScheme});
     });
 
     // click event to update the chessboard (for current user's turn)
